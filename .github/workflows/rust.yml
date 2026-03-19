@@ -20,3 +20,23 @@ jobs:
       run: cargo build --verbose
     - name: Run tests
       run: cargo test --verbose
+  publish:
+    name: cargo publish
+    runs-on: ubuntu-latest
+    env:
+      # Provide the API key via an environment variable sourced from a GitHub Secret.
+      # Create this secret in your repo settings: Settings → Secrets and variables → Actions → New repository secret
+      CARGO_REGISTRY_TOKEN: ${{ secrets.REPO_RELEASE_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cargo login (optional; uses env var)
+        run: cargo login "$CARGO_REGISTRY_TOKEN"
+
+      - name: Publish to crates.io
+        run: cargo publish --locked
