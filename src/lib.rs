@@ -1,10 +1,9 @@
 #![forbid(unsafe_code)]
-#![deny(clippy::all, clippy::cargo)]
+#![deny(clippy::cargo)]
 #![warn(clippy::pedantic, clippy::nursery)]
 
-mod gen;
-
-pub use gen::MinecraftVersion;
+#[allow(clippy::all)]
+include!(concat!(env!("OUT_DIR"), "/gen.rs"));
 
 #[cfg(test)]
 mod tests {
