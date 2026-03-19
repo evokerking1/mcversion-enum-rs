@@ -26,8 +26,9 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
 
     col.sort_by_key(|x| x.release_time);
 
-    let f = File::options().create(true).write(true).append(false).open("./src/gen.rs")?;
-    let mut bw = BufWriter::new(f);
+    let out_dir = std::env::var("OUT_DIR")?;
+    let dest_path = std::path::Path::new(&out_dir).join("gen.rs");
+    let f = File::options().create(true).write(true).append(false).open(dest_path)?;    let mut bw = BufWriter::new(f);
     use std::io::Write;
 
     writeln!(&mut bw, "#[non_exhaustive]")?;
