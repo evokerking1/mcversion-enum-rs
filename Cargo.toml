@@ -1,6 +1,6 @@
 [package]
 name = "mcversion-enum-rs"
-version = "0.3.4"
+version = "0.3.5"
 edition = "2021"
 description = "Exhaustive enum of Minecraft versions"
 license = "Apache-2.0 OR MIT"
